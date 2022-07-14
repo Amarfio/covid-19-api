@@ -47,6 +47,22 @@ public class User {
     @Column(name="mac_address")
     private String mac_address;
 
+    public User(){
+
+    }
+
+    //value specifying constructor
+    public User(String firstname, String othername, String lastname, String userid, String contact, String email){
+        this.setFirstname(firstname);
+        this.setOthername(othername);
+        this.setLastname(lastname);
+        this.setContact(contact);
+        this.setEmail(email);
+        this.setUpdate_date(LocalDateTime.now());
+//        this.setPosted_date(LocalDateTime.now());
+
+    }
+
     public long getId() {
         return id;
     }
@@ -103,4 +119,43 @@ public class User {
         this.email = email;
     }
 
+    public LocalDateTime getPosted_date() {
+        return posted_date;
+    }
+
+    public void setPosted_date(LocalDateTime posted_date) {
+        this.posted_date = posted_date;
+    }
+
+    public Long getPosted_by() {
+        return posted_by;
+    }
+
+    public void setPosted_by(Long posted_by) {
+        this.posted_by = posted_by;
+    }
+
+    public LocalDateTime getUpdate_date() {
+        return update_date;
+    }
+
+    public void setUpdate_date(LocalDateTime update_date) {
+        this.update_date = update_date;
+    }
+
+    public String getIp_address() {
+        return ip_address;
+    }
+
+    public void setIp_address(String ip_address) {
+        this.ip_address = ip_address;
+    }
+
+    public String getMac_address() {
+        return mac_address;
+    }
+
+    public void setMac_address(String mac_address) {
+        this.mac_address = mac_address;
+    }
 }
