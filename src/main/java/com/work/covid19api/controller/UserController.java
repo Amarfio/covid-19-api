@@ -27,19 +27,19 @@ public class UserController {
 
     //get user details by id : get a particular user details by the specified id
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable(value="id") Long userId) throws ResourceNotFoundException {
-        User user = userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found for this id::"+ userId));
+    public ResponseEntity<User> getUserById(@PathVariable(value="id") Long id) throws ResourceNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found for this id::"+ id));
         return ResponseEntity.ok().body(user);
     }
 
     //get user details by specified userid
-    @GetMapping("/users/{userid}")
-    public ResponseEntity<User> getUserByUserid(@PathVariable(value="userid") String userid) throws ResourceNotFoundException{
-        User user = userRepository.findUserByUserid(userid);
-//                .orElseThrow(()->new ResourceNotFoundException("User not found for this userid::"+ userid));
-
-        return ResponseEntity.ok().body(user);
-    }
+//    @GetMapping("/users/{userid}")
+//    public ResponseEntity<User> getUserByUserid(@PathVariable(value="userid") String userid) throws ResourceNotFoundException{
+//        User user = userRepository.findUserByUserid(userid);
+////                .orElseThrow(()->new ResourceNotFoundException("User not found for this userid::"+ userid));
+//
+//        return ResponseEntity.ok().body(user);
+//    }
 
     //save user: post new User details
     @PostMapping("/users")

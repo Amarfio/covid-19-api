@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/covid19/api/v1")
+
 public class CovidTestController {
 
     @Autowired
