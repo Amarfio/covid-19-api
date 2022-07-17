@@ -6,6 +6,11 @@ import com.work.covid19api.model.CovidTest;
 import com.work.covid19api.model.User;
 import com.work.covid19api.repository.CovidTestRepository;
 import com.work.covid19api.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,10 +34,22 @@ public class CovidTestController {
     EmailSenderService senderService;
 
     //get covid tests: get all covid tests in the database
+    @Operation(summary="Get covid tests", description = "Get a list of covid tests")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the tests",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "Tests not found",
+                    content = @Content)})
     @GetMapping("/covidtests")
     public List<CovidTest> getAllCovidTests(){return this.covidTestRepository.findAll();}
 
     //save covidtest by userid: future change: change to save covid test by user's unique email
+    @Operation(summary="Add covid test", description = "Add a new covid test")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Test",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "Tests not found",
+                    content = @Content)})
     @PostMapping("/covidtests")
     public CovidTest createTest(@RequestBody CovidTest covidTest){
         double userTemp = covidTest.getTemperature();
@@ -73,6 +90,12 @@ public class CovidTestController {
     }
 
     //code to update user details
+    @Operation(summary="Update covid test using test id", description = "Updates user's covid test by details provided")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Test",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "Test not found",
+                    content = @Content)})
     @PutMapping("/covidtests/{id}")
     public ResponseEntity updateCovidTest(@PathVariable(value="id") Long covidId, @Validated @RequestBody CovidTest covidDetails) throws ResourceNotFoundException {
         CovidTest covidTest = covidTestRepository.findById(covidId).orElseThrow(()-> new ResourceNotFoundException("CovidTest not found for this id::"+ covidId));
